@@ -1,6 +1,5 @@
 # Domain Generation Algorithms (DGA) - Simulation and Detection using ML in a Dockerized Lab Environment
 
-![Documentation/dga_without_heading.png](Documentation/dga_without_heading.png)
 
 **Objective:**
 
@@ -14,6 +13,8 @@
 
 - **Domain Generation Algorithms (DGAs):** Malware often uses DGAs to create large numbers of random-looking domains, making it hard for defenders to block Command-and-Control (C2) servers.
 - **Why Lab Simulation:** Building a controlled lab allows safe, isolated study of DGA behavior, testing of detection techniques, and hands-on learning without real-world risk.
+
+![Documentation/dga_without_heading.png](Documentation/dga_without_heading.png)
 
 ## **Docker Containers:**
 

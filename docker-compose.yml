@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+  attacker_v2:
+    build:
+      context: ./attacker_v2
+      dockerfile: Dockerfile
+    container_name: attacker_v2
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./attacker_v2:/app    # code + logs persisted here
+    networks:
+      - dga_lab_network_v2
+    ports:
+      - "8080:8080"        # expose attacker for quick manual testing (optional)
+    restart: unless-stopped
+
+  victim_v2:
+    build:
+      context: ./victim_v2
+      dockerfile: Dockerfile
+    container_name: victim_v2
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./victim_v2:/app
+    networks:
+      - dga_lab_network_v2
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+
+  defender_v2:
+    build:
+      context: ./defender_v2
+      dockerfile: Dockerfile
+    container_name: defender_v2
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DEFENDER_CSV_PATH=/app/datasets/domains_features_numeric_with_more_tables.csv
+    volumes:
+      - ./defender_v2:/app
+      - ./defender_v2/datasets:/app/datasets
+    networks:
+      - dga_lab_network_v2
+    ports:
+      - "5000:5000"        # defender dashboard accessible at host:5000
+    restart: unless-stopped
+
+networks:
+  dga_lab_network_v2:
+    driver: bridge
